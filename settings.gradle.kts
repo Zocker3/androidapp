@@ -18,12 +18,11 @@ dependencyResolutionManagement {
         mavenCentral()
         maven("https://developer.dji.com/maven")
         maven {
-            setUrl("https://api.mapbox.com/downloads/v2/")
-            credentials {
-                username = "mapbox"
-                password = System.getenv("sk.eyJ1IjoiejMzMTM2Mzk5IiwiYSI6ImNtN2tiN2FnNTBhcWoya3Mzd2lheGF6angifQ.K7SbzVfwomQRJjyUSnIPfw") ?: providers.gradleProperty("sk.eyJ1IjoiejMzMTM2Mzk5IiwiYSI6ImNtN2tiN2FnNTBhcWoya3Mzd2lheGF6angifQ.K7SbzVfwomQRJjyUSnIPfw").getOrElse("")
-            }
+            url = uri("https://api.mapbox.com/downloads/v2/releases/maven")
         }
+        maven { url= uri ("https://maven.aliyun.com/repository/public") }
+        maven { url = uri ("https://maven.aliyun.com/repository/google")}
+        maven { url = uri ("https://repo.huaweicloud.com/repository/maven") }
     }
 }
 

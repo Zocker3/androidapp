@@ -5,22 +5,12 @@ plugins {
 }
 
 android {
-    buildFeatures {
-        buildConfig = true
-    }
-    buildTypes {
-        release {
-            buildConfigField(
-                type = "String",
-                name = "MAPBOX_ACCESS_TOKEN",
-                value = "\"sk.eyJ1IjoiejMzMTM2Mzk5IiwiYSI6ImNtN2tiN2FnNTBhcWoya3Mzd2lheGF6angifQ.K7SbzVfwomQRJjyUSnIPfw\""
-            )
-        }
-    }
     namespace = "com.example.myapplication"
     compileSdk = 35
 
     defaultConfig {
+        multiDexEnabled = true
+        minSdk = 21
         applicationId = "com.example.myapplication"
         minSdk = 27
         targetSdk = 35
@@ -49,12 +39,22 @@ android {
     buildFeatures {
         compose = true
     }
+    packagingOptions {
+        exclude("dji/thirdparty/okhttp3/internal/publicsuffix/publicsuffixes.gz")
+    }
 }
 
 dependencies {
-    implementation("com.dji:dji-sdk:4.16")
-    implementation("com.dji:dji-uxsdk:4.16")
-    implementation("com.mapbox.maps:android:11.10.1")
+
+    implementation("com.dji:dji-sdk:4.18") {
+        exclude(group = "com.mapbox.android")
+    }
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+    compileOnly("com.dji:dji-sdk:4.18")
+//    implementation("com.dji:dji-uxsdk:4.16.2")
+    compileOnly("com.dji:dji-sdk-provided:4.18")
+    implementation("com.mapbox.maps:android:11.10.2")
+    implementation("androidx.multidex:multidex:2.0.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -70,4 +70,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
 }
